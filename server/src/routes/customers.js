@@ -1,0 +1,10 @@
+import {Router} from 'express';
+import {pool} from '../db/db.js';
+const router=Router();
+const parseCustomer=r=>({...r,tags:typeof r.tags==='string'?JSON.parse(r.tags):r.tags});
+router.get('/',async(req,res,next)=>{try{const [rows]=await pool.query(`SELECT c.*, MAX(o.order_date) last_order, COUNT(o.id) order_count, COALESCE(SUM(CASE WHEN o.status!='Cancelled' THEN o.amount ELSE 0 END),0) total_spent FROM customers c LEFT JOIN orders o ON o.customer_id=c.id GROUP BY c.id ORDER BY c.id DESC`);res.json(rows.map(parseCustomer))}catch(e){next(e)}});
+router.get('/:id',async(req,res,next)=>{try{const [[c]]=await pool.query('SELECT * FROM customers WHERE id=?',[req.params.id]);if(!c)return res.status(404).json({message:'Customer not found'});const [orders]=await pool.query('SELECT * FROM orders WHERE customer_id=? ORDER BY order_date DESC',[req.params.id]);const [notes]=await pool.query('SELECT * FROM customer_notes WHERE customer_id=? ORDER BY created_at DESC',[req.params.id]);res.json({...parseCustomer(c),orders,notes})}catch(e){next(e)}});
+router.post('/',async(req,res,next)=>{try{const {name,email,phone}=req.body;if(!name||!email)return res.status(400).json({message:'Name and email are required'});const [r]=await pool.query('INSERT INTO customers(name,email,phone,status,tags) VALUES(?,?,?,?,?)',[name,email,phone||'—','New',JSON.stringify(['New Customer'])]);res.status(201).json({id:r.insertId,name,email,phone:phone||'—',status:'New',tags:['New Customer']})}catch(e){next(e)}});
+router.post('/:id/notes',async(req,res,next)=>{try{if(!req.body.note?.trim())return res.status(400).json({message:'Note is required'});const [r]=await pool.query('INSERT INTO customer_notes(customer_id,note) VALUES(?,?)',[req.params.id,req.body.note.trim()]);const [[note]]=await pool.query('SELECT * FROM customer_notes WHERE id=?',[r.insertId]);res.status(201).json(note)}catch(e){next(e)}});
+router.post('/:id/send',async(req,res)=>{const type=req.body.type||'Message';res.json({success:true,message:`${type} sent successfully.`})});
+export default router;

@@ -1,0 +1,3 @@
+import {Router} from 'express';import {pool} from '../db/db.js';const router=Router();
+router.get('/',async(req,res,next)=>{try{const [[r]]=await pool.query("SELECT COALESCE(SUM(CASE WHEN status!='Cancelled' THEN amount ELSE 0 END),0) revenue,COUNT(*) orders,COALESCE(AVG(CASE WHEN status!='Cancelled' THEN amount END),0) avg_order FROM orders");const [dist]=await pool.query('SELECT status,COUNT(*) count FROM customers GROUP BY status');res.json({revenue:Number(r.revenue),orders:r.orders,avgOrder:Number(r.avg_order),growth:12,distribution:dist,ordersOverTime:[22,31,28,40,47,52],revenueOverTime:[48,63,59,81,96,112],months:['May','Jun','Jul','Aug','Sep','Oct']})}catch(e){next(e)}});
+export default router;

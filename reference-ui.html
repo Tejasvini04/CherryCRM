@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CherryCRM</title>
+<style>
+:root{--c:#670626;--c2:#8a1a3f;--iv:#F7F1EA;--ink:#222;--mut:#7a7068;--bd:#e3d9cd;--pn:#fffdf9;--g:#2f6b3f;--a:#9a6a12;--r:#a3261f;box-sizing:border-box;color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--iv);color:var(--ink);font:17px/1.5 "Times New Roman",Times,serif}
+h1,h2,h3{margin:0;color:var(--c)}h1{font-size:34px;line-height:1.15}h2{font-size:21px;margin-bottom:12px}
+a,.lk{color:var(--c);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+nav{background:var(--pn);border-right:1px solid var(--bd);padding:26px 14px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.brand{font-size:26px;font-weight:bold;color:var(--c);padding:0 12px 26px}.brand i{font-weight:normal}
+nav button.n{display:flex;gap:12px;align-items:center;width:100%;text-align:left;border:0;background:none;font:inherit;padding:9px 12px;border-radius:4px;color:var(--ink);cursor:pointer;margin-bottom:2px}
+nav button.n:hover{background:#f3eadf}nav button.n.on{background:var(--c);color:#fff}
+nav svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;flex:none}
+.me{margin-top:auto;border-top:1px solid var(--bd);padding:14px 12px 0;display:flex;gap:10px;align-items:center;font-size:15px}
+.av{width:34px;height:34px;border-radius:50%;background:var(--c);color:#fff;display:grid;place-items:center;font-size:14px;flex:none}
+main{padding:36px 44px 60px;max-width:1100px;width:100%}
+.top{display:none}
+.sub{color:var(--mut);margin:6px 0 26px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.btn{font:inherit;background:var(--c);color:#fff;border:1px solid var(--c);padding:8px 18px;border-radius:3px;cursor:pointer;transition:background .15s}
+.btn:hover{background:var(--c2)}.btn.o{background:transparent;color:var(--c)}.btn.o:hover{background:#f0e4da}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--bd);background:var(--pn);margin-bottom:34px}
+.stats div{padding:16px 20px;border-right:1px solid var(--bd)}.stats div:last-child{border:0}
+.stats b{font-size:28px;display:block;color:var(--c);line-height:1.2}.stats span{color:var(--mut);font-size:15px}
+.box{background:var(--pn);border:1px solid var(--bd);margin-bottom:34px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:560px}
+th{text-align:left;font-weight:bold;font-size:15px;color:var(--mut);padding:11px 16px;border-bottom:1px solid var(--bd)}
+td{padding:12px 16px;border-bottom:1px solid #efe6db}tr:last-child td{border:0}
+tbody tr.cl{cursor:pointer}tbody tr.cl:hover{background:#f8efe5}
+.bd{font-size:14px;padding:2px 9px;border:1px solid;border-radius:20px;white-space:nowrap}
+.Delivered,.Active,.on_{color:var(--g);border-color:#b9d3bf}.Pending,.Processing{color:var(--a);border-color:#e0cb9c}
+.Cancelled{color:var(--r);border-color:#e4b9b5}.Shipped,.Confirmed,.VIP,.New{color:var(--c);border-color:#d9b4c2}.Inactive{color:var(--mut);border-color:var(--bd)}
+.tag{font-size:14px;background:#efe6db;color:#5a4a40;padding:2px 9px;border-radius:3px;margin-right:6px;display:inline-block}
+.bar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+input,select,textarea{font:inherit;padding:8px 12px;border:1px solid var(--bd);background:var(--pn);border-radius:3px;color:var(--ink)}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--c);outline-offset:1px}
+.bar input{flex:1;min-width:200px}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.pills button{font:inherit;font-size:15px;border:1px solid var(--bd);background:none;padding:4px 14px;border-radius:20px;cursor:pointer}
+.pills button.on{background:var(--c);color:#fff;border-color:var(--c)}
+.empty{text-align:center;padding:48px 20px;color:var(--mut)}.empty b{display:block;color:var(--ink);font-size:20px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.ov div{display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #efe6db}.ov div:last-child{border:0}
+.tl{display:flex;margin:10px 0 6px}.tl div{flex:1;text-align:center;position:relative;font-size:15px;color:var(--mut)}
+.tl div:before{content:"";display:block;width:16px;height:16px;border-radius:50%;border:2px solid var(--bd);background:var(--pn);margin:0 auto 6px;position:relative;z-index:1}
+.tl div:after{content:"";position:absolute;top:7px;left:-50%;width:100%;height:2px;background:var(--bd)}.tl div:first-child:after{display:none}
+.tl .d{color:var(--ink)}.tl .d:before{background:var(--c);border-color:var(--c)}.tl .d:after{background:var(--c)}
+.tl .cur{color:var(--c);font-weight:bold}.tl .cur:before{box-shadow:0 0 0 4px #e7ccd6}
+.pad{padding:20px 22px}.kv{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.kv span{color:var(--mut);font-size:15px;display:block}.kv b{font-size:22px}
+.ins{border-left:3px solid var(--c);padding:6px 16px;margin-bottom:34px;background:var(--pn);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);border-right:1px solid var(--bd)}
+.wf{display:flex;justify-content:space-between;gap:20px;padding:18px 22px;border-bottom:1px solid #efe6db;align-items:center}.wf:last-child{border:0}
+.wf small{color:var(--mut);font-size:15px;display:block}
+.sw{width:42px;height:24px;border-radius:12px;background:#cfc4b8;border:0;position:relative;cursor:pointer;flex:none;transition:background .15s}
+.sw:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .15s}
+.sw.on{background:var(--c)}.sw.on:after{left:21px}
+.bars{display:flex;align-items:flex-end;gap:10px;height:130px;padding:0 4px}
+.bars div{flex:1;background:var(--c);opacity:.85;position:relative;min-height:3px}.bars div:hover{opacity:1}
+.bars span{position:absolute;bottom:-22px;left:0;right:0;text-align:center;font-size:13px;color:var(--mut)}
+.dist div{display:flex;align-items:center;gap:12px;margin:9px 0}.dist i{display:block;height:12px;background:var(--c);opacity:.8}
+.modal{position:fixed;inset:0;background:rgba(34,20,24,.45);display:none;place-items:center;padding:16px;z-index:9}
+.modal.on{display:grid}.mb{background:var(--iv);padding:26px;width:min(480px,100%);border:1px solid var(--bd);animation:pop .18s ease}
+@keyframes pop{from{transform:translateY(8px);opacity:0}}
+.mb label{display:block;margin:12px 0 4px;font-size:15px;color:var(--mut)}.mb input,.mb select,.mb textarea{width:100%}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--c);color:#fff;padding:10px 22px;border-radius:3px;z-index:20;display:none}
+.toast.err{background:var(--r)}
+.note{padding:12px 22px;border-bottom:1px solid #efe6db}.note small{color:var(--mut)}
+.sy li{list-style:none;padding:6px 0;color:var(--mut)}.sy li.ok{color:var(--g)}
+.back{margin-bottom:14px;display:inline-block}
+@media(max-width:860px){.app{grid-template-columns:1fr}
+nav{position:fixed;left:-250px;width:240px;z-index:10;transition:left .2s}nav.open{left:0}
+.top{display:flex;align-items:center;gap:14px;padding:12px 18px;background:var(--pn);border-bottom:1px solid var(--bd)}
+.top button{background:none;border:0;font-size:26px;color:var(--c);cursor:pointer;padding:0}
+main{padding:24px 18px 50px}h1{font-size:28px}
+.stats{grid-template-columns:1fr 1fr}.stats div:nth-child(2){border-right:0}.stats div:nth-child(-n+2){border-bottom:1px solid var(--bd)}
+.two{grid-template-columns:1fr;gap:0}.kv{grid-template-columns:1fr 1fr}.tl{font-size:12px}.tl div{font-size:12px}}
+</style></head><body>
+<div class="top"><button onclick="document.querySelector('nav').classList.toggle('open')" aria-label="Menu">&#9776;</button><b style="color:var(--c);font-size:21px">CherryCRM</b></div>
+<div class="app"><nav id="nav"></nav><main id="m"></main></div>
+<div class="modal" id="md"><div class="mb" id="mb"></div></div><div class="toast" id="t"></div>
+<script>
+const ic={Dashboard:'<path d="M3 11l9-7 9 7v9H3z"/>',Customers:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-4 3-6 6.500-6s6.500 2 6.500 6M16 5a3.500 3.500 0 010 7M18 14c2.500.7 4 2.500 4 6"/>',Orders:'<path d="M4 4h16v16H4zM4 9h16M9 9v11"/>',Communications:'<path d="M3 5h18v13H8l-5 3z"/>',"WooCommerce Sync":'<path d="M20 8a8 8 0 00-14-2L4 8M4 4v4h4M4 16a8 8 0 0014 2l2-2M20 20v-4h-4"/>',Analytics:'<path d="M4 20V4M4 20h16M8 16v-5M13 16V8M18 16v-3"/>',Settings:'<circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/>'};
+const P=Object.keys(ic);
+let C=[
+{id:1,n:'Rahul Sharma',e:'rahul@gmail.com',ph:'+91 98220 41107',s:'VIP',tags:['VIP','Frequent Buyer','High Value'],notes:['Customer prefers faster delivery.','Interested in sports shoes.']},
+{id:2,n:'Priya Patil',e:'priya@gmail.com',ph:'+91 98903 22458',s:'Active',tags:['Frequent Buyer'],notes:['Likes cotton, neutral colours.']},
+{id:3,n:'Amit Kumar',e:'amit@gmail.com',ph:'+91 97650 11329',s:'New',tags:['New Customer'],notes:[]},
+{id:4,n:'Sneha Naik',e:'sneha.naik@gmail.com',ph:'+91 99230 76514',s:'Active',tags:[],notes:[]},
+{id:5,n:'Vikram Desai',e:'vikram.desai@outlook.com',ph:'+91 98500 33871',s:'VIP',tags:['VIP','High Value'],notes:['Buys gifts around Diwali.']},
+{id:6,n:'Anjali Kamat',e:'anjali.kamat@gmail.com',ph:'+91 98225 90462',s:'Inactive',tags:['Inactive'],notes:[]},
+{id:7,n:'Rohan Fernandes',e:'rohan.f@gmail.com',ph:'+91 98907 14230',s:'Inactive',tags:['Inactive'],notes:[]},
+{id:8,n:'Meera Joshi',e:'meera.joshi@gmail.com',ph:'+91 97300 55218',s:'New',tags:['New Customer'],notes:[]}];
+const last={1:'3 days ago',2:'Yesterday',3:'Today',4:'2 weeks ago',5:'5 days ago',6:'94 days ago',7:'121 days ago',8:'Today'};
+let O=[
+[1051,1,'Nike Air Max',2999,'Shipped','5 Oct'],[1050,2,'Classic Cotton Shirt',1499,'Delivered','5 Oct'],[1049,3,'Smart Watch',3999,'Processing','4 Oct'],
+[1048,8,'Leather Wallet',899,'Pending','4 Oct'],[1047,5,'Smart Watch',4999,'Delivered','1 Oct'],[1046,1,'Leather Wallet',1299,'Delivered','28 Sep'],
+[1045,4,'Classic Cotton Shirt',1299,'Confirmed','22 Sep'],[1044,1,'Nike Air Max',3499,'Delivered','14 Sep'],[1043,2,'Leather Wallet',2701,'Delivered','9 Sep'],
+[1042,5,'Nike Air Max',3299,'Pending','2 Sep'],[1041,6,'Classic Cotton Shirt',999,'Cancelled','3 Jul'],[1040,7,'Leather Wallet',799,'Delivered','6 Jun']].map(o=>({id:o[0],c:o[1],p:o[2],a:o[3],s:o[4],d:o[5]}));
+const stageOf={Pending:0,Confirmed:1,Processing:2,Shipped:3,Delivered:4,Cancelled:-1};
+const stages=['Order placed','Confirmed','Packed','Shipped','Delivered'];
+let W=[['Order confirmation','When an order is placed','Send confirmation message',1],['Shipping notification','When an order is shipped','Send shipping notification',1],['Delivery thank you','When an order is delivered','Send thank-you message',1]];
+let T=[['Order confirmation','Your order has been confirmed','Hi {{customer_name}},\n\nThank you for your order #{{order_id}}.\n\nYour order is now being processed.\n\nThank you,\nCommerce CRM'],['Shipping notification','Your order is on its way','Hi {{customer_name}},\n\nYour {{product_name}} (order #{{order_id}}) has been shipped.\n\nThank you,\nCommerce CRM']];
+let S={pg:'Dashboard',cid:null,oid:null,q:'',f:'All',oq:'',of:'All',sync:0,err:0};
+const $=id=>document.getElementById(id),R=n=>'₹'+n.toLocaleString('en-IN'),cu=id=>C.find(c=>c.id==id),
+ords=id=>O.filter(o=>o.c==id),spent=id=>ords(id).filter(o=>o.s!='Cancelled').reduce((a,o)=>a+o.a,0),
+bd=s=>`<span class="bd ${s}">${s}</span>`;
+function toast(t,e){const x=$('t');x.textContent=t;x.className='toast'+(e?' err':'');x.style.display='block';clearTimeout(x.h);x.h=setTimeout(()=>x.style.display='none',2600)}
+function go(p,x){S.pg=p;S.cid=null;S.oid=null;if(x)Object.assign(S,x);document.querySelector('nav').classList.remove('open');draw();scrollTo(0,0)}
+function modal(h){$('mb').innerHTML=h;$('md').classList.add('on')}function close_(){$('md').classList.remove('on')}
+$('md').onclick=e=>{if(e.target.id=='md')close_()};
+function orderRows(l){return l.map(o=>`<tr class="cl" onclick="go('Orders',{oid:${o.id}})"><td>#${o.id}</td><td>${cu(o.c).n}</td><td>${o.p}</td><td>${R(o.a)}</td><td>${bd(o.s)}</td><td>${o.d}</td></tr>`).join('')}
+const oth='<thead><tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>';
+function nav(){$('nav').innerHTML=`<div class="brand">Cherry<i>CRM</i></div>`+P.map(p=>`<button class="n ${S.pg==p?'on':''}" onclick="go('${p}')"><svg viewBox="0 0 24 24">${ic[p]}</svg>${p}</button>`).join('')+`<div class="me"><div class="av">AN</div><div>Ashwin Naik<br><span style="color:var(--mut);font-size:14px">Store owner</span></div></div>`}
+function insight(c){const n=ords(c.id).length,sp=spent(c.id);
+if(c.s=='VIP'||sp>10000)return `${c.n.split(' ')[0]} is a high-value customer. ${n} orders, ${R(sp)} spent.`+'|Consider offering a loyalty discount to encourage another purchase.';
+if(c.s=='Inactive')return `${c.n.split(' ')[0]} has not ordered in ${last[c.id].split(' ')[0]} days.`+'|Send a re-engagement message.';
+if(c.s=='New')return `${c.n.split(' ')[0]} placed a first order recently.`+'|Send a thank-you message and suggest related products.';
+return `${c.n.split(' ')[0]} orders regularly.|Share new arrivals to keep the habit going.`}
+function dash(){const rev=O.filter(o=>o.s!='Cancelled').reduce((a,o)=>a+o.a,0);
+const cnt=s=>C.filter(c=>c.s==s).length;
+return `<h1>Good afternoon</h1><p class="sub">Here's what's happening with your customers and orders.</p>
+<div class="stats"><div><b>128</b><span>Customers</span></div><div><b>342</b><span>Orders</span></div><div><b>₹2.4L</b><span>Revenue</span></div><div><b>18</b><span>Pending</span></div></div>
+<h2>Recent orders</h2><div class="box"><table>${oth}<tbody>${orderRows(O.slice(0,5))}</tbody></table></div>
+<div class="two"><div><h2>Customer overview</h2><div class="box ov">${['New','Active','VIP','Inactive'].map(s=>`<div><span>${s} customers</span><b>${[24,61,17,26][['New','Active','VIP','Inactive'].indexOf(s)]}</b></div>`).join('')}</div></div>
+<div><h2>Orders this week</h2><div class="box pad" style="padding-bottom:42px"><div class="bars">${[38,52,44,61,57,49,67].map((v,i)=>`<div style="height:${v*1.7}px" title="${v} orders"><span>${'MTWTFSS'[i]}</span></div>`).join('')}</div></div></div></div>
+<h2>Needs attention</h2><div class="ins"><p><b>${insight(cu(1)).split('|')[0]}</b><br>${insight(cu(1)).split('|')[1]}</p></div>`}
+function custs(){const l=C.filter(c=>(S.f=='All'||c.s==S.f)&&(c.n+c.e).toLowerCase().includes(S.q.toLowerCase()));
+return `<div class="head"><div><h1>Customers</h1><p class="sub" style="margin-bottom:18px">Manage and understand your customer relationships.</p></div><button class="btn" onclick="addC()">+ Add Customer</button></div>
+<div class="bar"><input id="s" placeholder="Search customers" value="${S.q}" oninput="S.q=this.value;list()"></div>
+<div class="pills">${['All','New','Active','VIP','Inactive'].map(f=>`<button class="${S.f==f?'on':''}" onclick="S.f='${f}';draw()">${f}</button>`).join('')}</div><div id="l"></div>`}
+function list(){const l=C.filter(c=>(S.f=='All'||c.s==S.f)&&(c.n+c.e).toLowerCase().includes(S.q.toLowerCase()));
+$('l').innerHTML=`<div class="box">`+(l.length?`<table><thead><tr><th>Customer</th><th>Email</th><th>Orders</th><th>Total spent</th><th>Last order</th><th>Status</th></tr></thead><tbody>${l.map(c=>`<tr class="cl" onclick="go('Customers',{cid:${c.id}})"><td><b>${c.n}</b></td><td>${c.e}</td><td>${ords(c.id).length} orders</td><td>${R(spent(c.id))}</td><td>${last[c.id]||'Today'}</td><td>${bd(c.s)}</td></tr>`).join('')}</tbody></table>`:`<div class="empty"><b>No customers found.</b>Try changing your search or filter.</div>`)+`</div>`}
+function addC(){modal(`<h2>Add customer</h2><label>Full name</label><input id="an"><label>Email</label><input id="ae" type="email"><label>Phone</label><input id="ap"><div style="margin-top:20px;display:flex;gap:10px;justify-content:flex-end"><button class="btn o" onclick="close_()">Cancel</button><button class="btn" onclick="saveC()">Add customer</button></div>`);$('an').focus()}
+function saveC(){const n=$('an').value.trim(),e=$('ae').value.trim();if(!n||!e)return toast('Enter a name and email to add a customer.',1);
+C.unshift({id:Date.now(),n,e,ph:$('ap').value||'—',s:'New',tags:['New Customer'],notes:[]});last[C[0].id]='Today';close_();S.f='All';S.q='';draw();toast('Customer added successfully.')}
+function prof(){const c=cu(S.cid),o=ords(c.id),sp=spent(c.id),v=o.filter(x=>x.s!='Cancelled').length,ins=insight(c).split('|');
+return `<a class="lk back" onclick="go('Customers')">&larr; All customers</a><div class="head"><div><h1>${c.n}</h1><p class="sub" style="margin-bottom:6px">${c.e} &nbsp;|&nbsp; ${c.ph} &nbsp; ${bd(c.s)}</p><div>${c.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div></div><br>
+<div class="box pad"><div class="kv"><div><span>Total orders</span><b>${o.length}</b></div><div><span>Total spent</span><b>${R(sp)}</b></div><div><span>Average order value</span><b>${v?R(Math.round(sp/v)):'—'}</b></div><div><span>Last order</span><b>${last[c.id]||'Today'}</b></div></div></div>
+<div class="ins"><p><b>${ins[0]}</b><br>Recommendation: ${ins[1]}</p></div>
+<h2>Order history</h2><div class="box">${o.length?`<table><thead><tr><th>Order ID</th><th>Product</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead><tbody>${o.map(x=>`<tr class="cl" onclick="go('Orders',{oid:${x.id}})"><td>#${x.id}</td><td>${x.p}</td><td>${R(x.a)}</td><td>${bd(x.s)}</td><td>${x.d}</td></tr>`).join('')}</tbody></table>`:`<div class="empty"><b>No orders yet.</b>Orders from WooCommerce will appear here.</div>`}</div>
+<div class="two"><div><h2>Customer notes</h2><div class="box">${c.notes.map(n=>`<div class="note">${n}</div>`).join('')||'<div class="empty">No notes yet.</div>'}<div class="note" style="display:flex;gap:8px;border:0"><input id="nt" style="flex:1" placeholder="Add a note"><button class="btn" onclick="addN()">Add</button></div></div></div>
+<div><h2>Customer communication</h2><div class="box pad" style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn o" onclick="send('Email')">Send Email</button><button class="btn o" onclick="send('Order update')">Send Order Update</button><button class="btn o" onclick="send('Thank-you message')">Send Thank You</button></div></div></div>`}
+function addN(){const v=$('nt').value.trim();if(!v)return;cu(S.cid).notes.push(v);draw();toast('Note added.')}
+function send(t){toast(t+' sent to '+cu(S.cid).n+'.')}
+function ordersP(){return `<h1>Orders</h1><p class="sub" style="margin-bottom:18px">Track every order from placement to delivery.</p>
+<div class="bar"><input placeholder="Search order or customer" value="${S.oq}" oninput="S.oq=this.value;ol()"></div>
+<div class="pills">${['All','Pending','Processing','Confirmed','Shipped','Delivered','Cancelled'].map(f=>`<button class="${S.of==f?'on':''}" onclick="S.of='${f}';draw()">${f}</button>`).join('')}</div><div id="l"></div>`}
+function ol(){const q=S.oq.toLowerCase(),l=O.filter(o=>(S.of=='All'||o.s==S.of)&&(('#'+o.id+cu(o.c).n).toLowerCase().includes(q)));
+$('l').innerHTML=`<div class="box">`+(l.length?`<table>${oth}<tbody>${orderRows(l)}</tbody></table>`:`<div class="empty"><b>No orders found.</b>No orders match your current filter.</div>`)+`</div>`}
+function odet(){const o=O.find(x=>x.id==S.oid),c=cu(o.c),st=stageOf[o.s];
+return `<a class="lk back" onclick="go('Orders')">&larr; All orders</a><div class="head"><h1>Order #${o.id}</h1>${bd(o.s)}</div><br>
+<div class="box pad"><div class="kv"><div><span>Customer</span><b class="lk" onclick="go('Customers',{cid:${c.id}})" style="font-size:20px">${c.n}</b></div><div><span>Product</span><b style="font-size:20px">${o.p}</b></div><div><span>Amount</span><b style="font-size:20px">${R(o.a)}</b></div><div><span>Date</span><b style="font-size:20px">${o.d} 2026</b></div></div></div>
+<h2>Order progress</h2><div class="box pad">${st<0?'<p style="color:var(--r);margin:0">This order was cancelled.</p>':`<div class="tl">${stages.map((s,i)=>`<div class="${i<=st?'d':''} ${i==st?'cur':''}">${s}</div>`).join('')}</div>`}
+<div style="display:flex;gap:10px;margin-top:22px;flex-wrap:wrap"><select id="ns">${Object.keys(stageOf).map(s=>`<option ${s==o.s?'selected':''}>${s}</option>`).join('')}</select><button class="btn" onclick="upd(${o.id})">Update Status</button></div></div>`}
+function upd(id){O.find(o=>o.id==id).s=$('ns').value;draw();toast('Order status updated.')}
+function comms(){return `<div class="head"><div><h1>Communications</h1><p class="sub" style="margin-bottom:18px">Messages your customers receive automatically.</p></div><button class="btn" onclick="toast('Workflow builder is coming soon.')">+ Create Workflow</button></div>
+<h2>Workflows</h2><div class="box">${W.map((w,i)=>`<div class="wf"><div><b style="color:var(--c)">${w[0]}</b><small>Trigger: ${w[1]}</small><small>Action: ${w[2]}</small></div><div style="display:flex;gap:12px;align-items:center"><span style="font-size:15px;color:${w[3]?'var(--g)':'var(--mut)'}">${w[3]?'Enabled':'Disabled'}</span><button class="sw ${w[3]?'on':''}" aria-label="Toggle" onclick="W[${i}][3]^=1;draw();toast('Workflow ${w[3]?'disabled':'enabled'}.')"></button></div></div>`).join('')}</div>
+<h2>Message templates</h2><div class="box">${T.map((t,i)=>`<div class="wf"><div><b>${t[0]}</b><small>Subject: ${t[1]}</small></div><button class="btn o" onclick="tpl(${i})">View / edit</button></div>`).join('')}</div>`}
+function tpl(i){const t=T[i];modal(`<h2>${t[0]}</h2><label>Subject</label><input id="ts" value="${t[1]}"><label>Message</label><textarea id="tb" rows="9">${t[2]}</textarea><p style="font-size:14px;color:var(--mut);margin:8px 0 0">Variables: {{customer_name}} {{order_id}} {{product_name}} {{order_amount}}</p><div style="margin-top:18px;display:flex;gap:10px;justify-content:flex-end"><button class="btn o" onclick="close_()">Cancel</button><button class="btn" onclick="T[${i}][1]=$('ts').value;T[${i}][2]=$('tb').value;close_();draw();toast('Template saved.')">Save template</button></div>`)}
+function woo(){const s=S.sync;
+return `<h1>WooCommerce Sync</h1><p class="sub">Your store data, kept current in CherryCRM.</p>
+<div class="box pad"><div class="kv"><div><span>Connection</span><b style="color:var(--g)">Connected</b></div><div style="grid-column:span 3"><span>Last synchronized</span><b>${S.last||'5 October 2026, 2:30 PM'}</b></div></div></div>
+<div class="stats" style="grid-template-columns:repeat(3,1fr)"><div><b>128</b><span>Customers synced</span></div><div><b>342</b><span>Orders synced</span></div><div><b>86</b><span>Products synced</span></div></div>
+<button class="btn" ${s==1?'disabled':''} onclick="doSync()">${s==1?'Syncing...':'Sync Now'}</button>
+<div class="box pad" style="margin-top:24px;display:${s?'block':'none'}"><ul class="sy" style="margin:0;padding:0">${s?`<li class="ok">Syncing WooCommerce data...</li>`:''}${['Customers','Orders','Products'].map((x,i)=>`<li class="${S.step>i?'ok':''}">${x} ${S.step>i?'&#10003;':''}</li>`).join('')}${s==2?'<li class="ok"><b>Synchronization completed.</b><br>128 customers synchronized<br>342 orders synchronized</li>':''}</ul></div>
+<p style="color:var(--mut);font-size:15px;margin-top:20px">The store connects through a secure server. API keys are never stored in the browser.</p>`}
+function doSync(){S.sync=1;S.step=0;draw();[1,2,3].forEach(i=>setTimeout(()=>{S.step=i;if(i==3){S.sync=2;S.last='5 October 2026, 3:05 PM';toast('Synchronization completed.')}if(S.pg=='WooCommerce Sync')draw()},i*800))}
+function anal(){const m=[22,31,28,40,47,52],mo=['May','Jun','Jul','Aug','Sep','Oct'],r=[48,63,59,81,96,112];
+const d=[['New',24],['Active',61],['VIP',17],['Inactive',26]];
+return `<h1>Analytics</h1><p class="sub">How the business is growing.</p>
+<div class="stats"><div><b>₹2.4L</b><span>Total revenue</span></div><div><b>342</b><span>Total orders</span></div><div><b>₹702</b><span>Average order value</span></div><div><b>+12%</b><span>Customer growth</span></div></div>
+<div class="two"><div><h2>Orders over time</h2><div class="box pad" style="padding-bottom:42px"><div class="bars">${m.map((v,i)=>`<div style="height:${v*2.4}px" title="${v}"><span>${mo[i]}</span></div>`).join('')}</div></div></div>
+<div><h2>Revenue overview (₹ thousand)</h2><div class="box pad" style="padding-bottom:42px"><div class="bars">${r.map((v,i)=>`<div style="height:${v*1.1}px" title="₹${v}k"><span>${mo[i]}</span></div>`).join('')}</div></div></div></div>
+<h2>Customer distribution</h2><div class="box pad dist">${d.map(x=>`<div><span style="width:70px">${x[0]}</span><i style="width:${x[1]*4}px;max-width:60%"></i><b>${x[1]}</b></div>`).join('')}</div>`}
+function sett(){return `<h1>Settings</h1><p class="sub">Store and account preferences.</p><div class="box"><div class="wf"><div><b>Store name</b><small>Commerce CRM</small></div></div><div class="wf"><div><b>Currency</b><small>Indian Rupee (₹)</small></div></div><div class="wf"><div><b>Sender email</b><small>orders@yourstore.in</small></div></div></div>`}
+function draw(){nav();const m=$('m'),p=S.pg;
+m.innerHTML=p=='Dashboard'?dash():p=='Customers'?(S.cid?prof():custs()):p=='Orders'?(S.oid?odet():ordersP()):p=='Communications'?comms():p=='WooCommerce Sync'?woo():p=='Analytics'?anal():sett();
+if(p=='Customers'&&!S.cid)list();if(p=='Orders'&&!S.oid)ol()}
+draw();
+</script></body></html>

@@ -1,0 +1,5 @@
+import {Router} from 'express';import {pool} from '../db/db.js';const router=Router();
+router.get('/',async(req,res,next)=>{try{const [rows]=await pool.query(`SELECT o.*, c.name customer_name,c.email customer_email FROM orders o JOIN customers c ON c.id=o.customer_id ORDER BY o.order_date DESC,o.id DESC`);res.json(rows)}catch(e){next(e)}});
+router.get('/:id',async(req,res,next)=>{try{const [[row]]=await pool.query(`SELECT o.*, c.name customer_name,c.email customer_email FROM orders o JOIN customers c ON c.id=o.customer_id WHERE o.id=?`,[req.params.id]);if(!row)return res.status(404).json({message:'Order not found'});res.json(row)}catch(e){next(e)}});
+router.patch('/:id/status',async(req,res,next)=>{try{const allowed=['Pending','Processing','Confirmed','Shipped','Delivered','Cancelled'];if(!allowed.includes(req.body.status))return res.status(400).json({message:'Invalid order status'});await pool.query('UPDATE orders SET status=? WHERE id=?',[req.body.status,req.params.id]);const [[row]]=await pool.query('SELECT * FROM orders WHERE id=?',[req.params.id]);res.json(row)}catch(e){next(e)}});
+export default router;
